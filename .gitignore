@@ -1,0 +1,8 @@
+# Build folders
+cmake-build-release/
+cmake-build-debug/
+
+# Executables
+*.exe
+*.out
+*.app
