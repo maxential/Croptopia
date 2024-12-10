@@ -26,7 +26,28 @@ elseif(UNIX)
 endif()
 
 # Add the executable target
-add_executable(Croptopia src/main.cpp)
+add_executable(Croptopia src/main.cpp
+        src/renderer/Renderer.cpp
+        src/renderer/Renderer.h
+        src/renderer/Window.cpp
+        src/renderer/Window.h
+        src/utilities/math.h
+        dependencies/include/imgui/imconfig.h
+        dependencies/include/imgui/imgui.cpp
+        dependencies/include/imgui/imgui.h
+        dependencies/include/imgui/imgui_demo.cpp
+        dependencies/include/imgui/imgui_draw.cpp
+        dependencies/include/imgui/imgui_impl_sdl3.cpp
+        dependencies/include/imgui/imgui_impl_sdl3.h
+        dependencies/include/imgui/imgui_impl_sdlrenderer3.cpp
+        dependencies/include/imgui/imgui_impl_sdlrenderer3.h
+        dependencies/include/imgui/imgui_internal.h
+        dependencies/include/imgui/imgui_tables.cpp
+        dependencies/include/imgui/imgui_widgets.cpp
+        dependencies/include/imgui/imstb_rectpack.h
+        dependencies/include/imgui/imstb_textedit.h
+        dependencies/include/imgui/imstb_truetype.h
+)
 
 # Use find_package to locate glm
 find_package(glm CONFIG REQUIRED)

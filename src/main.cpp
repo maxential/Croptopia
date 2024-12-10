@@ -1,27 +1,39 @@
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include "SDL3/SDL.h"
+#include "renderer/Renderer.h"
 
 int main() {
-    glm::vec3 position(0.0f, 1.0f, 2.0f);
-    glm::mat4 matrix = glm::translate(glm::mat4(1.0f), position);
 
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
-    {
-        SDL_Log("sdl failed to initialize with error %s", SDL_GetError());
-        return -1;
-    }
-    SDL_Log("Initialised SDL");
-    SDL_Window* window = SDL_CreateWindow("title", 1200, 720, 0);
-    if (!window) {
-        SDL_Log("failed to create window with error %s", SDL_GetError());
-    }
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
-    SDL_SetRenderDrawColor(renderer,0xFF,0,0xFF,0xFF);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
-    SDL_Delay(5000);
+    Window wind = Window("Croptopia Demo", 800, 600);
+    Renderer rend = Renderer(wind);
+
+    rend.render([&]() {
+        SDL_SetRenderDrawColor(rend.getSDLRenderer(), 255, 0, 0, 255);
+        SDL_FRect src_r;
+        src_r.x = 0;
+        src_r.y = 0;
+        src_r.w = 128;
+        src_r.h = 128;
+
+        SDL_FRect rect;
+        rect.x = 100;
+        rect.y = 100;
+        rect.w = 200;
+        rect.h = 150;
+
+
+        SDL_RenderFillRect(rend.getSDLRenderer(), &rect);
+        glm::vec4 color = { 255,0,255,255 };
+        // draw::rectangle(rend.getSDLRenderer(), rect, color);
+        //
+        // bool render = SDL_RenderTexture(rend.>getSDLRenderer(), texture_manager->GetTexture("wheat"), &src_r, &src_r);
+        // if (!render)
+        // {
+        //     SDL_Log("failed to render %s\n", SDL_GetError());
+        //     return -1;
+        // }
+        //
+        // DrawDebugMenu();
+
+    });
     return 0;
 }
