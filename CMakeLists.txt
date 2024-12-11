@@ -53,7 +53,6 @@ target_include_directories(ImGui PUBLIC dependencies/include/imgui)
 # Link ImGui to the executable
 target_link_libraries(Croptopia PRIVATE ImGui)
 
-# Use find_package to locate glm
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(Croptopia PRIVATE glm::glm)
 

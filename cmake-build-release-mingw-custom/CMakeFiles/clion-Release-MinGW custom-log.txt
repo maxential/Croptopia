@@ -1,0 +1,19 @@
+"C:\Program Files\JetBrains\CLion 2024.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3/bin/ninja/win/x64/ninja.exe" -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake -G Ninja -S D:\Projects\Croptopia -B D:\Projects\Croptopia\cmake-build-release-mingw-custom
+-- PROJECT_SOURCE_DIR: D:/Projects/Croptopia
+-- Include directory: D:/Projects/Croptopia/dependencies/include
+-- Running on Windows
+CMake Error at C:/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package):
+  Could not find a package configuration file provided by "glm" with any of
+  the following names:
+
+    glmConfig.cmake
+    glm-config.cmake
+
+  Add the installation prefix of "glm" to CMAKE_PREFIX_PATH or set "glm_DIR"
+  to a directory containing one of the above files.  If "glm" provides a
+  separate development package or SDK, be sure it has been installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:57 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
