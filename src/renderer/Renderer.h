@@ -6,6 +6,7 @@
 #define RENDERER_H
 #include <memory>
 #include <functional>
+#include <thread>
 #include "Window.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl3.h"

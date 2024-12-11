@@ -32,6 +32,8 @@ add_executable(Croptopia src/main.cpp
         src/renderer/Window.cpp
         src/renderer/Window.h
         src/utilities/math.h
+        src/game/Game.cpp
+        src/game/Game.h
 )
 
 # Add ImGui as a static library
@@ -57,9 +59,9 @@ target_link_libraries(Croptopia PRIVATE glm::glm)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "Configuring for Debug mode")
-    target_link_libraries(Croptopia PRIVATE ${PROJECT_SOURCE_DIR}/dependencies/lib/Debug/SDL/SDL3.lib)
+    target_link_libraries(Croptopia PRIVATE ${PROJECT_SOURCE_DIR}/dependencies/lib/Debug/SDL/SDL3.dll)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     message(STATUS "Configuring for Release mode")
-    target_link_libraries(Croptopia PRIVATE ${PROJECT_SOURCE_DIR}/dependencies/lib/Release/SDL/SDL3.lib)
+    target_link_libraries(Croptopia PRIVATE ${PROJECT_SOURCE_DIR}/dependencies/lib/Release/SDL/SDL3.dll)
 endif()
 

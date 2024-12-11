@@ -7,6 +7,7 @@
 Renderer::Renderer(Window& _window)
     : window(&_window)
 {
+
     renderer = SDL_CreateRenderer(window->getSDLWindow(), NULL);
     if (!renderer) {
         SDL_Log("Failed to create renderer with error %s", SDL_GetError());
