@@ -40,15 +40,16 @@ void Game::DrawDebugMenu()
 
 bool Game::Start()
 {
-    //Game loop
-    std::thread gameThread([&]() {
+    isRunning = true;
+    // Game loop
+    gameThread = std::thread([&]() {
         ticks_per_second = 20;
         total_ticks = 0;
         total_frames = 0;
         Uint32 lastTickTime = SDL_GetTicks();
         Uint32 lastFrameTime = lastTickTime;
 
-        for (;;) {
+        while (isRunning) { // Check the running condition
             const Uint32 tickInterval = 1000 / ticks_per_second;
             Uint32 currentTime = SDL_GetTicks();
             Uint32 deltaTime = currentTime - lastTickTime;
@@ -56,16 +57,14 @@ bool Game::Start()
             if (deltaTime >= tickInterval) {
                 lastTickTime += tickInterval;
                 total_ticks++;
-                //update();
+                // update();
                 printf("tick! %d\n", lastTickTime);
             }
-            //printf("frame!\n");
+            // printf("frame!\n");
             total_frames++;
             SDL_Delay(4);
         }
     });
-
-    gameThread.detach();
 
     renderer.render([&]() {
          SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 255, 0, 0, 255);

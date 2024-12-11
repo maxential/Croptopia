@@ -24,6 +24,9 @@ private:
 
     Renderer& renderer;
 
+    std::thread gameThread;
+    bool isRunning = false;
+
     const bool* key_states;
 
     int ticks_per_second;

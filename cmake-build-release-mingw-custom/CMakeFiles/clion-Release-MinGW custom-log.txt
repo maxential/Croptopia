@@ -13,7 +13,7 @@ CMake Error at C:/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package):
   to a directory containing one of the above files.  If "glm" provides a
   separate development package or SDK, be sure it has been installed.
 Call Stack (most recent call first):
-  CMakeLists.txt:57 (find_package)
+  CMakeLists.txt:56 (find_package)
 
 
 -- Configuring incomplete, errors occurred!
