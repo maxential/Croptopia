@@ -15,8 +15,13 @@ void DrawFormattedText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, con
     drawList->AddText(pos, color, buffer);
 }
 
-Game::Game(Renderer& ren) : renderer(ren) {
+Game::Game(Renderer& ren)
+      : renderer(ren),
+        textures(ren.getSDLRenderer())
+{
     ticks_per_second = 20;
+
+    textures.InitializeTextures();
 };
 
 Game::~Game()
@@ -58,7 +63,7 @@ bool Game::Start()
                 lastTickTime += tickInterval;
                 total_ticks++;
                 // update();
-                printf("tick! %d\n", lastTickTime);
+                //printf("tick! %d\n", lastTickTime);
             }
             // printf("frame!\n");
             total_frames++;

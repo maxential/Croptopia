@@ -6,7 +6,7 @@
 #define GAME_H
 
 #include "../renderer/Renderer.h"
-
+#include "../renderer/TextureManager.h"
 
 class Game {
 public:
@@ -23,6 +23,7 @@ private:
     void update_crops();
 
     Renderer& renderer;
+    TextureManager textures;
 
     std::thread gameThread;
     bool isRunning = false;
