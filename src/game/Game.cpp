@@ -88,6 +88,18 @@ bool Game::Start()
          SDL_RenderFillRect(renderer.getSDLRenderer(), &rect);
          glm::vec4 color = { 255,0,255,255 };
 
+        SDL_RenderTexture(renderer.getSDLRenderer(), textures.GetTexture("wheat"), &src_r, &src_r);
+
+        // auto texture = textures.GetTexture("wheat");
+        // if (!texture) {
+        //     SDL_Log("Texture retrieval failed for 'wheat'");
+        //     return -1;
+        // }
+        // bool render = SDL_RenderTexture(renderer.getSDLRenderer(), texture, &src_r, &src_r);
+        // if (!render) {
+        //     SDL_Log("Failed to render: %s\n", SDL_GetError());
+        //     return -1;
+        // }
         DrawDebugMenu();
     });
 
