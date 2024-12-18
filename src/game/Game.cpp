@@ -2,6 +2,10 @@
 // Created by max on 12/10/2024.
 //
 #include "Game.h"
+#include "Crops/BaseTile.h"
+
+int gridWidth = 16;   // gridWidth: number of tiles horizontally
+int gridHeight = 16; // gridHeight: number of tiles vertically
 
 /* Move this soon */
 void DrawFormattedText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* format, ...) {
@@ -46,6 +50,10 @@ void Game::DrawDebugMenu()
 bool Game::Start()
 {
     isRunning = true;
+
+    // Initialize tile grid
+    std::vector<std::vector<BaseTile>> tiles(gridHeight, std::vector<BaseTile>(gridWidth));
+
     // Game loop
     gameThread = std::thread([&]() {
         ticks_per_second = 20;
@@ -63,46 +71,55 @@ bool Game::Start()
                 lastTickTime += tickInterval;
                 total_ticks++;
                 // update();
-                //printf("tick! %d\n", lastTickTime);
             }
-            // printf("frame!\n");
+
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_EVENT_QUIT) {
+                    isRunning = false;
+                } else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+                    if (event.button.button == SDL_BUTTON_LEFT) {
+                        int mouseX = event.button.x;
+                        int mouseY = event.button.y;
+                        ConsoleManager::getInstance()->log(WARNING_NONE, "test");
+                        // Determine which tile is clicked
+                        int tileX = mouseX / (renderer.getWindowSize().x / gridWidth);
+                        int tileY = mouseY / (renderer.getWindowSize().y / gridHeight);
+
+                        if (tileX >= 0 && tileX < gridWidth && tileY >= 0 && tileY < gridHeight) {
+                            BaseTile& clickedTile = tiles[tileY][tileX];
+                            printf("Clicked Tile: (%d, %d)\n", tileX, tileY);
+                        }
+                    }
+                }
+            }
+
             total_frames++;
-            SDL_Delay(4);
+
         }
     });
 
     renderer.render([&]() {
-         SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 255, 0, 0, 255);
-         SDL_FRect src_r;
-         src_r.x = 0;
-         src_r.y = 0;
-         src_r.w = 128;
-         src_r.h = 128;
+        int screenWidth, screenHeight;
+        SDL_GetCurrentRenderOutputSize(renderer.getSDLRenderer(), &screenWidth, &screenHeight);
 
-         SDL_FRect rect;
-         rect.x = 100;
-         rect.y = 100;
-         rect.w = 200;
-         rect.h = 150;
+        float tileWidth = static_cast<float>(screenWidth) / gridWidth;
+        float tileHeight = static_cast<float>(screenHeight) / gridHeight;
 
-         SDL_RenderFillRect(renderer.getSDLRenderer(), &rect);
-         glm::vec4 color = { 255,0,255,255 };
+        /* Draw background tiles */
+        for (int y = 0; y < gridHeight; ++y) {
+            for (int x = 0; x < gridWidth; ++x) {
+                BaseTile& tile = tiles[y][x];
+                SDL_FRect tileRect = { x * tileWidth, y * tileHeight, tileWidth, tileHeight };
 
-        SDL_RenderTexture(renderer.getSDLRenderer(), textures.GetTexture("wheat"), &src_r, &src_r);
+                tile.SetPosition(tileRect);
 
-        // auto texture = textures.GetTexture("wheat");
-        // if (!texture) {
-        //     SDL_Log("Texture retrieval failed for 'wheat'");
-        //     return -1;
-        // }
-        // bool render = SDL_RenderTexture(renderer.getSDLRenderer(), texture, &src_r, &src_r);
-        // if (!render) {
-        //     SDL_Log("Failed to render: %s\n", SDL_GetError());
-        //     return -1;
-        // }
+                SDL_RenderTexture(renderer.getSDLRenderer(), textures.GetTexture("wheat"), nullptr, &tileRect);
+            }
+        }
+
         DrawDebugMenu();
     });
-
 
     return 0;
 }

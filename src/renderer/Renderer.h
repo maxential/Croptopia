@@ -19,12 +19,13 @@ public:
     ~Renderer();
 
     SDL_Renderer* getSDLRenderer() const { return renderer; }
-
+    glm::i32vec2 getWindowSize();
     void render(const std::function<void()>& callback);
 
 private:
     std::unique_ptr<Window> window;
     SDL_Renderer* renderer;
+    glm::i32vec2 windowSize;
 };
 
 

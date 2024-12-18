@@ -2,6 +2,7 @@
 #include "game/Game.h"
 
 int main() {
+    ConsoleManager::getInstance()->Initialize();
     /* Move this soon */
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
     {

@@ -5,8 +5,16 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "../utilities/ConsoleManager.h"
 #include "../renderer/Renderer.h"
 #include "../renderer/TextureManager.h"
+#include "Crops/BaseCrop.h"
+
+// Move this soon
+class Tomato : public BaseCrop {
+public:
+
+};
 
 class Game {
 public:

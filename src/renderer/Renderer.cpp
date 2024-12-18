@@ -72,3 +72,9 @@ void Renderer::render(const std::function<void()>& callback)
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
 }
+
+glm::i32vec2 Renderer::getWindowSize() {
+    glm::i32vec2 size;
+    SDL_GetCurrentRenderOutputSize(renderer, &size.x, &size.y);
+    return size;
+}

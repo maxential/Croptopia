@@ -5,11 +5,12 @@
 #ifndef BASECROP_H
 #define BASECROP_H
 
-#include "BaseEntity.h"
+#include "BaseTile.h"
 
 
-class BaseCrop : public BaseEntity {
-
+class BaseCrop : public BaseTile {
+public:
+    int grow_time;
 };
 
 
