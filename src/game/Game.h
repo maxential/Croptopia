@@ -26,9 +26,11 @@ private:
     /* Debug Stuff */
     void DrawDebugMenu();
     /* Rendering */
+    void DrawTiles();
     /* Game Logic*/
     void Update();
     void update_crops();
+    void OnTileClick(int x, int y);
 
     Renderer& renderer;
     TextureManager textures;
@@ -42,6 +44,10 @@ private:
     Uint32 tickInterval;
     Uint64 total_ticks;
     Uint64 total_frames;
+
+    int gridWidth;
+    int gridHeight;
+    std::vector<std::vector<std::unique_ptr<BaseTile>>> tiles;
 };
 
 

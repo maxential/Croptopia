@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "SDL3/SDL_image.h"
 #include <filesystem>
+#include <mutex>
 
 namespace fs = std::filesystem;
 
