@@ -19,11 +19,12 @@ Game::Game(Renderer& ren)
     ticks_per_second = 20;
     gridWidth = 16;
     gridHeight = 16;
+    textures.InitializeTextures();
     tiles.resize(gridHeight);
     for (int i = 0; i < gridHeight; ++i) {
         tiles[i].resize(gridWidth);
         for (int j = 0; j < gridWidth; ++j) {
-            SDL_Texture* dirtTexture = textures.GetTexture("dirt");
+            SDL_Texture* dirtTexture = textures.GetTexture("wheat");
             if (dirtTexture) {
                 tiles[i][j] = std::make_unique<BaseCrop>(dirtTexture);
             } else {
@@ -54,7 +55,10 @@ void Game::DrawTiles() {
     for (int y = 0; y < gridHeight; ++y) {
         for (int x = 0; x < gridWidth; ++x) {
             SDL_FRect tileRect = { x * tileWidth, y * tileHeight, tileWidth, tileHeight };
-            tiles[y][x]->Draw(renderer.getSDLRenderer(), tileRect);
+            tiles[y][x]->SetPosition(tileRect);
+            SDL_RenderTexture(renderer.getSDLRenderer(),  tiles[y][x]->GetTexture(), nullptr, &tileRect);
+            //tiles[y][x]->Draw(renderer.getSDLRenderer(), tileRect);
+            return;
         }
     }
 }

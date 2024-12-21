@@ -8,7 +8,7 @@ BaseTile::BaseTile(SDL_Texture* tex) : texture(tex) {
     position = {0, 0, 0, 0};
 }
 BaseTile::~BaseTile() {
-    
+
 }
 
 
@@ -21,7 +21,7 @@ SDL_Texture* BaseTile::GetTexture(){
 }
 
 void BaseTile::Draw(SDL_Renderer* renderer, const SDL_FRect& rect) {
-    if (texture) {
-        SDL_RenderTexture(renderer, texture, nullptr, &rect);
+    if (GetTexture()) {
+        SDL_RenderTexture(renderer,  GetTexture(), nullptr, &rect);
     }
 }
