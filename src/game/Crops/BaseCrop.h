@@ -20,14 +20,13 @@ public:
         grow_stage++;
     }
 
-    // Override the Draw function to render the crop tile
     void Draw(SDL_Renderer* renderer, const SDL_FRect& rect) override {
-        // The crop's color changes as it grows (example: fading green)
-        SDL_SetRenderDrawColor(renderer, 0, 255 - grow_stage * 20, 0, 255); // Gradually less green
-        SDL_RenderFillRect(renderer, &rect);  // Fill the rectangle with the crop's color
+        // // The crop's color changes as it grows (example: fading green)
+        // SDL_SetRenderDrawColor(renderer, 0, 255 - grow_stage * 20, 0, 255); // Gradually less green
+        // SDL_RenderFillRect(renderer, &rect);  // Fill the rectangle with the crop's color
+        BaseTile::Draw(renderer, rect);
     }
 
-    // Override the OnClick function to handle growing the crop when clicked
     void OnClick() override {
         Grow();
         printf("Crop grow stage: %d\n", grow_stage);

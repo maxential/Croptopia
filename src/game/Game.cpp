@@ -56,8 +56,8 @@ void Game::DrawTiles() {
         for (int x = 0; x < gridWidth; ++x) {
             SDL_FRect tileRect = { x * tileWidth, y * tileHeight, tileWidth, tileHeight };
             tiles[y][x]->SetPosition(tileRect);
-            SDL_RenderTexture(renderer.getSDLRenderer(),  tiles[y][x]->GetTexture(), nullptr, &tileRect);
-            //tiles[y][x]->Draw(renderer.getSDLRenderer(), tileRect);
+            //SDL_RenderTexture(renderer.getSDLRenderer(),  tiles[y][x]->GetTexture(), nullptr, &tileRect);
+            tiles[y][x]->Draw(renderer.getSDLRenderer(), tileRect);
             return;
         }
     }
