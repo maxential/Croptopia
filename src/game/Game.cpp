@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "Crops/BaseCrop.h"
 
+#include <mutex>
+
 
 void DrawFormattedText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* format, ...) {
     char buffer[512];
@@ -40,7 +42,7 @@ Game::~Game() {}
 void Game::OnTileClick(int x, int y) {
     if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
         auto& tile = tiles[y][x];
-        //tile->OnClick();
+        tile->OnClick();
         printf("Tile (%d, %d) clicked\n", x, y);
     }
 }
@@ -58,7 +60,6 @@ void Game::DrawTiles() {
             tiles[y][x]->SetPosition(tileRect);
             //SDL_RenderTexture(renderer.getSDLRenderer(),  tiles[y][x]->GetTexture(), nullptr, &tileRect);
             tiles[y][x]->Draw(renderer.getSDLRenderer(), tileRect);
-            return;
         }
     }
 }
@@ -95,28 +96,19 @@ bool Game::Start() {
                 total_ticks++;
             }
 
-            SDL_Event event;
-            while (SDL_PollEvent(&event)) {
-                if (event.type == SDL_EVENT_QUIT) {
-                    isRunning = false;
-                } else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-                    if (event.button.button == SDL_BUTTON_LEFT) {
-                        int mouseX = event.button.x;
-                        int mouseY = event.button.y;
-
-                        int tileX = mouseX / (renderer.getWindowSize().x / gridWidth);
-                        int tileY = mouseY / (renderer.getWindowSize().y / gridHeight);
-
-                        OnTileClick(tileX, tileY);
-                    }
-                }
-            }
+            // if (inputState.leftMouseDown) {
+            //     int tileX = inputState.mouseX / (renderer.getWindowSize().x / gridWidth);
+            //     int tileY = inputState.mouseY / (renderer.getWindowSize().y / gridHeight);
+            //
+            //     OnTileClick(tileX, tileY);
+            // }
 
             total_frames++;
         }
     });
 
     renderer.render([&]() {
+
         DrawTiles();
         DrawDebugMenu();
     });

@@ -44,6 +44,8 @@ add_executable(Croptopia src/main.cpp
         src/game/Crops/BaseTile.h
         src/utilities/ConsoleManager.cpp
         src/utilities/ConsoleManager.h
+        src/game/InputHandler.cpp
+        src/game/InputHandler.h
 )
 
 # Add ImGui as a static library

@@ -371,6 +371,7 @@ bool ImGui_ImplSDL3_ProcessEvent(const SDL_Event* event)
             return true;
         }
         case SDL_EVENT_KEY_DOWN:
+            SDL_Log("imgui key down\n");
         case SDL_EVENT_KEY_UP:
         {
             if (ImGui_ImplSDL3_GetViewportForWindowID(event->key.windowID) == NULL)
