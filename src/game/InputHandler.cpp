@@ -10,7 +10,7 @@ InputHandler* InputHandler::instance = nullptr;
 void InputHandler::UpdateFromEvent(const SDL_Event* event) {
     switch (event->type) {
         case SDL_EVENT_KEY_DOWN:
-            printf("key down\n");
+            printf("key down %llx\n",event->key.key);
             keyStates[event->key.key] = true;
         break;
 

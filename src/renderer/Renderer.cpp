@@ -3,6 +3,9 @@
 //
 
 #include "Renderer.h"
+
+#include <complex.h>
+
 #include "../game/InputHandler.h"
 
 Renderer::Renderer(Window& _window)
@@ -39,17 +42,7 @@ void Renderer::render(const std::function<void()>& callback)
     while (!quit)
     {
         while (SDL_PollEvent(&event)) {
-            switch (event.type)
-            {
-                case SDL_EVENT_QUIT:
-                    SDL_Log("quit");
-                quit = 1;
-                case SDL_EVENT_KEY_DOWN:
-                    SDL_Log("key down");
-                break;
-                default:
-                break;
-            }
+            InputHandler::getInstance()->UpdateFromEvent(&event);
             ImGui_ImplSDL3_ProcessEvent(&event);
         }
 

@@ -36,15 +36,5 @@ private:
     int mouseY = 0;
 };
 
-inline void UpdateFromEvent3(const SDL_Event* event) {
-    switch (event->type) {
-        case SDL_EVENT_KEY_DOWN:
-            SDL_Log("key down\n");
-        break;
-
-        default:
-            break;
-    }
-}
 
 #endif //INPUTHANDLER_H

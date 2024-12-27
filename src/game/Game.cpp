@@ -108,7 +108,6 @@ bool Game::Start() {
     });
 
     renderer.render([&]() {
-
         DrawTiles();
         DrawDebugMenu();
     });
