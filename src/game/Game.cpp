@@ -1,8 +1,10 @@
 #include "Game.h"
 #include "Crops/BaseCrop.h"
+#include "InputHandler.h"
 
 #include <mutex>
 
+#define input InputHandler::getInstance()
 
 void DrawFormattedText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* format, ...) {
     char buffer[512];
@@ -96,12 +98,14 @@ bool Game::Start() {
                 total_ticks++;
             }
 
-            // if (inputState.leftMouseDown) {
-            //     int tileX = inputState.mouseX / (renderer.getWindowSize().x / gridWidth);
-            //     int tileY = inputState.mouseY / (renderer.getWindowSize().y / gridHeight);
-            //
-            //     OnTileClick(tileX, tileY);
-            // }
+            if (input->isMouseButtonDown(0)) {
+                int mousex,mousey;
+                input->getMousePosition(mousex,mousey);
+                int tileX = mousex/ (renderer.getWindowSize().x / gridWidth);
+                int tileY = mousey  / (renderer.getWindowSize().y / gridHeight);
+
+                OnTileClick(tileX, tileY);
+            }
 
             total_frames++;
         }

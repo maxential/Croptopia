@@ -20,7 +20,6 @@ void InputHandler::UpdateFromEvent(const SDL_Event* event) {
 
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
             if (event->button.button == SDL_BUTTON_LEFT) {
-                printf("left\n");
                 mouseButtonStates[0] = true;
             } else if (event->button.button == SDL_BUTTON_MIDDLE) {
                 mouseButtonStates[1] = true;
@@ -41,7 +40,7 @@ void InputHandler::UpdateFromEvent(const SDL_Event* event) {
 
         case SDL_EVENT_MOUSE_MOTION:
             mouseX = event->motion.x;
-        mouseY = event->motion.y;
+            mouseY = event->motion.y;
         break;
 
         default:
