@@ -6,6 +6,24 @@
 
 #define input InputHandler::getInstance()
 
+// Derived class for Dirt
+class DirtCrop : public BaseCrop {
+public:
+    explicit DirtCrop(SDL_Texture* tex) : BaseCrop(tex) {}
+    std::string GetType() const override {
+        return "Dirt";
+    }
+};
+
+class WheatCrop : public BaseCrop {
+public:
+    explicit WheatCrop(SDL_Texture* tex) : BaseCrop(tex) {}
+
+    std::string GetType() const override {
+        return "Wheat";
+    }
+};
+
 void DrawFormattedText(ImDrawList* drawList, const ImVec2& pos, ImU32 color, const char* format, ...) {
     char buffer[512];
 
@@ -30,16 +48,45 @@ Game::Game(Renderer& ren)
         for (int j = 0; j < gridWidth; ++j) {
             SDL_Texture* dirtTexture = textures.GetTexture("wheat");
             if (dirtTexture) {
-                tiles[i][j] = std::make_unique<BaseCrop>(dirtTexture);
+                tiles[i][j] = std::make_unique<WheatCrop>(dirtTexture);
             } else {
                 std::cerr << "Failed to create tile due to texture loading error" << std::endl;
             }
         }
     }
-
 }
 
 Game::~Game() {}
+
+void Game::ReplaceTile(int x, int y, std::unique_ptr<BaseCrop> newCrop) {
+    if (x < 0 || x >= gridHeight || y < 0 || y >= gridWidth) {
+        std::cerr << "Invalid tile coordinates (" << x << ", " << y << ")" << std::endl;
+        return;
+    }
+
+    // Replace the existing tile with the new crop
+    tiles[x][y] = std::move(newCrop);
+}
+
+// Convenience methods for specific crops
+void Game::HarvestTile(int x, int y) {
+    SDL_Texture* dirtTexture = textures.GetTexture("dirt");
+    if (dirtTexture) {
+        ReplaceTile(x, y, std::make_unique<DirtCrop>(dirtTexture));
+    } else {
+        std::cerr << "Failed to load dirt texture" << std::endl;
+    }
+}
+
+void Game::PlantWheat(int x, int y) {
+    SDL_Texture* wheatTexture = textures.GetTexture("wheat");
+    if (wheatTexture) {
+        ReplaceTile(x, y, std::make_unique<WheatCrop>(wheatTexture));
+    } else {
+        std::cerr << "Failed to load wheat texture" << std::endl;
+    }
+}
+
 
 void Game::OnTileClick(int x, int y) {
     if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {

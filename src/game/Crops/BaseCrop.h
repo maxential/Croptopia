@@ -7,6 +7,7 @@
 
 #include "BaseTile.h"
 #include <stdio.h>
+#include <string>
 
 class BaseCrop : public BaseTile {
 public:
@@ -21,9 +22,6 @@ public:
     }
 
     void Draw(SDL_Renderer* renderer, const SDL_FRect& rect) override {
-        // // The crop's color changes as it grows (example: fading green)
-        // SDL_SetRenderDrawColor(renderer, 0, 255 - grow_stage * 20, 0, 255); // Gradually less green
-        // SDL_RenderFillRect(renderer, &rect);  // Fill the rectangle with the crop's color
         BaseTile::Draw(renderer, rect);
     }
 
@@ -31,6 +29,8 @@ public:
         Grow();
         printf("Crop grow stage: %d\n", grow_stage);
     }
+
+    virtual std::string GetType() const = 0; // Ensure derived classes define their type
 };
 
 

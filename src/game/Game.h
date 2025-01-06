@@ -32,6 +32,10 @@ private:
     void update_crops();
     void OnTileClick(int x, int y);
 
+    void ReplaceTile(int x, int y, std::unique_ptr<BaseCrop> newCrop);
+    void HarvestTile(int x, int y);
+    void PlantWheat(int x, int y);
+
     Renderer& renderer;
     TextureManager textures;
 
@@ -47,6 +51,7 @@ private:
 
     int gridWidth;
     int gridHeight;
+
     std::vector<std::vector<std::unique_ptr<BaseTile>>> tiles;
 };
 
